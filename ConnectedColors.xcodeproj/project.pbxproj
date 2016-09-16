@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		412658B61D8C99D90056ABC7 /* TheNights.m4r in Resources */ = {isa = PBXBuildFile; fileRef = 412658B51D8C99D90056ABC7 /* TheNights.m4r */; };
 		BF52C0A41AEFE4700042F9E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */; };
 		BF52C0A61AEFE4700042F9E8 /* ColorSwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52C0A51AEFE4700042F9E8 /* ColorSwitchViewController.swift */; };
 		BF52C0A91AEFE4700042F9E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF52C0A71AEFE4700042F9E8 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		412658B51D8C99D90056ABC7 /* TheNights.m4r */ = {isa = PBXFileReference; lastKnownFileType = file; path = TheNights.m4r; sourceTree = "<group>"; };
 		BF52C09E1AEFE4700042F9E8 /* ConnectedColors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConnectedColors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF52C0A21AEFE4700042F9E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 		BF52C0A01AEFE4700042F9E8 /* ConnectedColors */ = {
 			isa = PBXGroup;
 			children = (
+				412658B51D8C99D90056ABC7 /* TheNights.m4r */,
 				BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */,
 				BF52C0C51AEFEAEA0042F9E8 /* ColorServiceManager.swift */,
 				BF52C0A51AEFE4700042F9E8 /* ColorSwitchViewController.swift */,
@@ -159,11 +162,14 @@
 		BF52C0961AEFE4700042F9E8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0730;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Ralf Ebert";
 				TargetAttributes = {
 					BF52C09D1AEFE4700042F9E8 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = P6CL3M8X5H;
 					};
 					BF52C0B21AEFE4700042F9E8 = {
 						CreatedOnToolsVersion = 6.3;
@@ -195,6 +201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				412658B61D8C99D90056ABC7 /* TheNights.m4r in Resources */,
 				BF52C0A91AEFE4700042F9E8 /* Main.storyboard in Resources */,
 				BF52C0AE1AEFE4700042F9E8 /* LaunchScreen.xib in Resources */,
 				BF52C0AB1AEFE4700042F9E8 /* Images.xcassets in Resources */,
@@ -344,8 +351,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ConnectedColors/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pccrewexample.ConnectedColors;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -354,8 +363,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = ConnectedColors/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pccrewexample.ConnectedColors;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -413,6 +424,7 @@
 				BF52C0BF1AEFE4700042F9E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BF52C0C01AEFE4700042F9E8 /* Build configuration list for PBXNativeTarget "ConnectedColorsTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +433,7 @@
 				BF52C0C21AEFE4700042F9E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

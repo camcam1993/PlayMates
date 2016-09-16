@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ycg-LQ-0SA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ycg-LQ-0SA">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -17,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YJk-2a-R1e">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YJk-2a-R1e">
                                 <rect key="frame" x="16" y="125" width="48" height="38"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                 <state key="normal" title="Red">
@@ -27,7 +28,7 @@
                                     <action selector="redTapped:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="Jde-mU-2h7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhX-fe-hZU">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhX-fe-hZU">
                                 <rect key="frame" x="72" y="125" width="64" height="38"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                 <state key="normal" title="Yellow">
@@ -40,16 +41,28 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connections:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7jZ-Oe-uuY">
                                 <rect key="frame" x="16" y="84" width="288" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fuU-wC-mmG">
+                                <rect key="frame" x="0.0" y="180" width="320" height="388"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="ax0-WZ-lTZ" id="mGD-Lb-QQN"/>
+                                    <outlet property="delegate" destination="ax0-WZ-lTZ" id="RsY-zV-3Fh"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="YJk-2a-R1e" firstAttribute="top" secondItem="7jZ-Oe-uuY" secondAttribute="bottom" constant="20" id="Fk7-rB-1Fe"/>
                             <constraint firstItem="nhX-fe-hZU" firstAttribute="leading" secondItem="YJk-2a-R1e" secondAttribute="trailing" constant="8" id="OB3-Q2-pPI"/>
                             <constraint firstItem="7jZ-Oe-uuY" firstAttribute="top" secondItem="QIl-vK-9Or" secondAttribute="bottom" constant="20" id="Pd8-mG-7XI"/>
+                            <constraint firstAttribute="trailing" secondItem="fuU-wC-mmG" secondAttribute="trailing" id="Xom-KY-0cz"/>
+                            <constraint firstItem="fuU-wC-mmG" firstAttribute="leading" secondItem="8I6-do-OJY" secondAttribute="leading" id="YJW-5A-DWt"/>
+                            <constraint firstItem="fuU-wC-mmG" firstAttribute="top" secondItem="nhX-fe-hZU" secondAttribute="bottom" constant="17" id="gYX-jB-2Mx"/>
                             <constraint firstItem="7jZ-Oe-uuY" firstAttribute="trailing" secondItem="8I6-do-OJY" secondAttribute="trailingMargin" id="knQ-IQ-OS1"/>
+                            <constraint firstItem="85Y-Vt-2l0" firstAttribute="top" secondItem="fuU-wC-mmG" secondAttribute="bottom" id="rwq-RX-Nfi"/>
                             <constraint firstItem="YJk-2a-R1e" firstAttribute="leading" secondItem="8I6-do-OJY" secondAttribute="leadingMargin" id="txK-Hr-74u"/>
                             <constraint firstItem="nhX-fe-hZU" firstAttribute="baseline" secondItem="YJk-2a-R1e" secondAttribute="baseline" id="wNZ-4x-fEx"/>
                             <constraint firstItem="7jZ-Oe-uuY" firstAttribute="leading" secondItem="8I6-do-OJY" secondAttribute="leadingMargin" id="xVX-ge-Tdv"/>
@@ -59,6 +72,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="connectionsLabel" destination="7jZ-Oe-uuY" id="SVy-L4-G9S"/>
+                        <outlet property="tableviewSongs" destination="fuU-wC-mmG" id="rbG-OT-J88"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UW0-hb-LNu" sceneMemberID="firstResponder"/>

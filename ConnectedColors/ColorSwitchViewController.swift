@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ColorSwitchViewController: UIViewController {
 
     @IBOutlet weak var connectionsLabel: UILabel!
-    
+    var audioPlayer:AVAudioPlayer = AVAudioPlayer()
+
     let colorService = ColorServiceManager()
     
+    @IBOutlet weak var tableviewSongs: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         colorService.delegate = self
@@ -58,4 +61,56 @@ extension ColorSwitchViewController : ColorServiceManagerDelegate {
         }
     }
     
+    func playMusic() {
+        let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        if(APP_DELEGAT.arrayOfUrls?.count > 0){
+            tableviewSongs.reloadData()
+        }
+        
+        let urlOfMusic : NSURL = (APP_DELEGAT.arrayOfUrls?.firstObject)! as! NSURL
+        
+        do{
+            audioPlayer = try AVAudioPlayer(contentsOfURL: urlOfMusic)
+            audioPlayer.prepareToPlay()
+            audioPlayer.volume = 1.0
+            audioPlayer.play()
+        }catch{
+            print("error: \(error)")
+        }
+    }
+    
+    //MARK: table view
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
+        return (APP_DELEGAT.arrayOfUrls?.count)!
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        var preferenceCell : UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("Customcell")
+        if preferenceCell == nil {
+            
+            preferenceCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Customcell")
+        }
+        
+        let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
+        let urlOfSong:NSURL = (APP_DELEGAT.arrayOfUrls?.objectAtIndex(indexPath.row))! as! NSURL
+        preferenceCell?.textLabel!.text = urlOfSong.absoluteString
+        return preferenceCell!
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
+        let urlOfMusic : NSURL = (APP_DELEGAT.arrayOfUrls?.objectAtIndex(indexPath.row))! as! NSURL
+        
+        do{
+            audioPlayer = try AVAudioPlayer(contentsOfURL: urlOfMusic)
+            audioPlayer.prepareToPlay()
+            audioPlayer.volume = 1.0
+            audioPlayer.play()
+        }catch{
+            print("error: \(error)")
+        }
+    }
 }

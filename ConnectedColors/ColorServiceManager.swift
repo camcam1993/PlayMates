@@ -13,7 +13,7 @@ protocol ColorServiceManagerDelegate {
     
     func connectedDevicesChanged(manager : ColorServiceManager, connectedDevices: [String])
     func colorChanged(manager : ColorServiceManager, colorString: String)
-    
+    func playMusic()
 }
 
 class ColorServiceManager : NSObject {
@@ -45,16 +45,26 @@ class ColorServiceManager : NSObject {
     
     lazy var session: MCSession = {
         let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.Required)
-        session?.delegate = self
+        session.delegate = self
         return session
     }()
 
-    func sendColor(colorName : String) {
+    func sendColor(colorName : String) {//pkc1
         NSLog("%@", "sendColor: \(colorName)")
         
         if session.connectedPeers.count > 0 {
             var error : NSError?
-            if !self.session.sendData(colorName.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false), toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error) {
+            do {
+                //**Z
+                let fileURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("TheNights", ofType: "m4r")!)
+                self.session.sendResourceAtURL(fileURL, withName: "TheNights", toPeer: session.connectedPeers.first!, withCompletionHandler: { (error) in
+                    
+                })
+                
+                //***
+                try self.session.sendData(colorName.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable)
+            } catch let error1 as NSError {
+                error = error1
                 NSLog("%@", "\(error)")
             }
         }
@@ -65,11 +75,11 @@ class ColorServiceManager : NSObject {
 
 extension ColorServiceManager : MCNearbyServiceAdvertiserDelegate {
     
-    func advertiser(advertiser: MCNearbyServiceAdvertiser!, didNotStartAdvertisingPeer error: NSError!) {
+    func advertiser(advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: NSError) {
         NSLog("%@", "didNotStartAdvertisingPeer: \(error)")
     }
     
-    func advertiser(advertiser: MCNearbyServiceAdvertiser!, didReceiveInvitationFromPeer peerID: MCPeerID!, withContext context: NSData!, invitationHandler: ((Bool, MCSession!) -> Void)!) {
+    func advertiser(advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: NSData?, invitationHandler: ((Bool, MCSession) -> Void)) {
         
         NSLog("%@", "didReceiveInvitationFromPeer \(peerID)")
         invitationHandler(true, self.session)
@@ -79,17 +89,17 @@ extension ColorServiceManager : MCNearbyServiceAdvertiserDelegate {
 
 extension ColorServiceManager : MCNearbyServiceBrowserDelegate {
     
-    func browser(browser: MCNearbyServiceBrowser!, didNotStartBrowsingForPeers error: NSError!) {
+    func browser(browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: NSError) {
         NSLog("%@", "didNotStartBrowsingForPeers: \(error)")
     }
     
-    func browser(browser: MCNearbyServiceBrowser!, foundPeer peerID: MCPeerID!, withDiscoveryInfo info: [NSObject : AnyObject]!) {
+    func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         NSLog("%@", "foundPeer: \(peerID)")
         NSLog("%@", "invitePeer: \(peerID)")
         browser.invitePeer(peerID, toSession: self.session, withContext: nil, timeout: 10)
     }
     
-    func browser(browser: MCNearbyServiceBrowser!, lostPeer peerID: MCPeerID!) {
+    func browser(browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         NSLog("%@", "lostPeer: \(peerID)")
     }
     
@@ -110,27 +120,50 @@ extension MCSessionState {
 
 extension ColorServiceManager : MCSessionDelegate {
     
-    func session(session: MCSession!, peer peerID: MCPeerID!, didChangeState state: MCSessionState) {
+    func session(session: MCSession, peer peerID: MCPeerID, didChangeState state: MCSessionState) {
         NSLog("%@", "peer \(peerID) didChangeState: \(state.stringValue())")
         self.delegate?.connectedDevicesChanged(self, connectedDevices: session.connectedPeers.map({$0.displayName}))
     }
     
-    func session(session: MCSession!, didReceiveData data: NSData!, fromPeer peerID: MCPeerID!) {
+    func session(session: MCSession, didReceiveData data: NSData, fromPeer peerID: MCPeerID) {
+        //pkc2
         NSLog("%@", "didReceiveData: \(data.length) bytes")
         let str = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
         self.delegate?.colorChanged(self, colorString: str)
     }
     
-    func session(session: MCSession!, didReceiveStream stream: NSInputStream!, withName streamName: String!, fromPeer peerID: MCPeerID!) {
+    func session(session: MCSession, didReceiveStream stream: NSInputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
         NSLog("%@", "didReceiveStream")
     }
     
-    func session(session: MCSession!, didFinishReceivingResourceWithName resourceName: String!, fromPeer peerID: MCPeerID!, atURL localURL: NSURL!, withError error: NSError!) {
+    func session(session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, atURL localURL: NSURL, withError error: NSError?) {
+
+        do{
+            let urlOfMusicFile = self.getDocumentDirectoryUrl(resourceName)
+            try NSFileManager.defaultManager().copyItemAtURL(localURL, toURL: urlOfMusicFile)
+            let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
+            APP_DELEGAT.arrayOfUrls?.addObject(urlOfMusicFile)
+            self.delegate?.playMusic()
+        }catch{
+            print("error: \(error)")
+        }
+
+        
         NSLog("%@", "didFinishReceivingResourceWithName")
+        print("localURL:- \(localURL)")
     }
     
-    func session(session: MCSession!, didStartReceivingResourceWithName resourceName: String!, fromPeer peerID: MCPeerID!, withProgress progress: NSProgress!) {
+    func session(session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, withProgress progress: NSProgress) {
         NSLog("%@", "didStartReceivingResourceWithName")
     }
-    
+  
+    //MARK:-
+    func getDocumentDirectoryUrl(musicFileName: String) -> NSURL{
+        let fileManager = NSFileManager.defaultManager()
+        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        let documentDirectory:NSURL = urls.first!
+        
+        let finalDatabaseURL = documentDirectory.URLByAppendingPathComponent("\(musicFileName).mp3")
+        return finalDatabaseURL
+    }
 }
