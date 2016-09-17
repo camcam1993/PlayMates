@@ -6,10 +6,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Colors-->
+        <!--Play Mates-->
         <scene sceneID="pbQ-RR-lx9">
             <objects>
-                <viewController id="ax0-WZ-lTZ" customClass="ColorSwitchViewController" customModule="ConnectedColors" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ax0-WZ-lTZ" customClass="ColorSwitchViewController" customModule="PlayMates" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QIl-vK-9Or"/>
                         <viewControllerLayoutGuide type="bottom" id="85Y-Vt-2l0"/>
@@ -52,6 +52,13 @@
                                     <outlet property="delegate" destination="ax0-WZ-lTZ" id="RsY-zV-3Fh"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RTX-TY-hrR">
+                                <rect key="frame" x="238" y="129" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="btnMediaPickerAction:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="sbt-m7-n84"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -68,7 +75,7 @@
                             <constraint firstItem="7jZ-Oe-uuY" firstAttribute="leading" secondItem="8I6-do-OJY" secondAttribute="leadingMargin" id="xVX-ge-Tdv"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Colors" id="4b8-Ez-evB"/>
+                    <navigationItem key="navigationItem" title="Play Mates" id="4b8-Ez-evB"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="connectionsLabel" destination="7jZ-Oe-uuY" id="SVy-L4-G9S"/>

@@ -1,15 +1,13 @@
 //
 //  ViewController.swift
 //  ConnectedColors
-//
-//  Created by Ralf Ebert on 28/04/15.
-//  Copyright (c) 2015 Ralf Ebert. All rights reserved.
-//
+
 
 import UIKit
 import AVFoundation
+import MediaPlayer
 
-class ColorSwitchViewController: UIViewController {
+class ColorSwitchViewController: UIViewController,MPMediaPickerControllerDelegate {
 
     @IBOutlet weak var connectionsLabel: UILabel!
     var audioPlayer:AVAudioPlayer = AVAudioPlayer()
@@ -21,7 +19,7 @@ class ColorSwitchViewController: UIViewController {
         super.viewDidLoad()
         colorService.delegate = self
     }
-
+    
     @IBAction func redTapped(sender: AnyObject) {
         self.changeColor(UIColor.redColor())
         colorService.sendColor("red")
@@ -36,6 +34,28 @@ class ColorSwitchViewController: UIViewController {
         UIView.animateWithDuration(0.2) {
             self.view.backgroundColor = color
         }
+    }
+    
+    //MARK: Action
+    
+    @IBAction func btnMediaPickerAction(sender: UIButton) {
+        let mediaPicker: MPMediaPickerController = MPMediaPickerController.self(mediaTypes:MPMediaType.Music)
+        mediaPicker.allowsPickingMultipleItems = false
+        mediaPicker.delegate = self
+        mediaPicker.allowsPickingMultipleItems = false
+        self.presentViewController(mediaPicker, animated: true, completion: nil)
+    }
+    
+    func mediaPickerDidCancel(mediaPicker: MPMediaPickerController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func mediaPicker(mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        print("you picked: \(mediaItemCollection)")
+        let mediaItem :MPMediaItem = mediaItemCollection.items.first!
+        colorService.sendMp3(mediaItem)
+        
     }
     
 }
@@ -65,7 +85,10 @@ extension ColorSwitchViewController : ColorServiceManagerDelegate {
         let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
         
         if(APP_DELEGAT.arrayOfUrls?.count > 0){
-            tableviewSongs.reloadData()
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                self.tableviewSongs.reloadData()
+
+            })
         }
         
         let urlOfMusic : NSURL = (APP_DELEGAT.arrayOfUrls?.firstObject)! as! NSURL

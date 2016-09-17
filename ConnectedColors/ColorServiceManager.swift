@@ -1,13 +1,12 @@
 //
 //  ColorServiceManager.swift
 //  ConnectedColors
-//
-//  Created by Ralf Ebert on 28/04/15.
-//  Copyright (c) 2015 Ralf Ebert. All rights reserved.
-//
+
 
 import Foundation
 import MultipeerConnectivity
+import MediaPlayer
+
 
 protocol ColorServiceManagerDelegate {
     
@@ -49,6 +48,52 @@ class ColorServiceManager : NSObject {
         return session
     }()
 
+    func myDocumentsDirectory() -> NSString{
+        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+    }
+
+    func sendMp3(mediaItem : MPMediaItem)  {
+        if session.connectedPeers.count > 0 {
+            let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
+            APP_DELEGAT.showHud()
+            do {
+                //export the native song with proper url
+                let assetURL = mediaItem.valueForProperty(MPMediaItemPropertyAssetURL) as! NSURL
+                let songAsset : AVURLAsset = AVURLAsset(URL: assetURL, options: nil)
+                let exporter : AVAssetExportSession = AVAssetExportSession(asset: songAsset, presetName: AVAssetExportPresetAppleM4A)!
+                exporter.outputFileType = "com.apple.m4a-audio";
+                let ss = myDocumentsDirectory()
+                let dd = NSURL(fileURLWithPath: ss as String)
+                let exportFileUrl = dd.URLByAppendingPathComponent("\(mediaItem.title).m4a")
+                
+
+//                ss.stringb
+                
+//                let exportFile = [myDocumentsDirectory() stringByAppendingPathComponent: @"exported.m4a"];
+
+//                let exportFile : NSString = self.getDocumentDirectoryUrlDUMMY(mediaItem.title!)
+//                let exportURL : NSURL = NSURL(fileURLWithPath: exportFile as String)
+                exporter.outputURL = exportFileUrl;
+                //    myDeleteFile(exportFile);
+///***
+                exporter.exportAsynchronouslyWithCompletionHandler({ 
+                    let exportStatus = exporter.status
+                    switch(exportStatus){
+                    case .Completed:
+                        let audioUrl = exportFileUrl;
+                        self.session.sendResourceAtURL(audioUrl, withName: mediaItem.title!, toPeer: self.session.connectedPeers.first!, withCompletionHandler: { (error) in
+                                print("error at sending: \(error)")
+                            })
+                        break
+                    default:
+                        break
+                    }
+                })
+            }
+        }
+        
+    }
+    
     func sendColor(colorName : String) {//pkc1
         NSLog("%@", "sendColor: \(colorName)")
         
@@ -58,18 +103,20 @@ class ColorServiceManager : NSObject {
                 //**Z
                 let fileURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("TheNights", ofType: "m4r")!)
                 self.session.sendResourceAtURL(fileURL, withName: "TheNights", toPeer: session.connectedPeers.first!, withCompletionHandler: { (error) in
-                    
+                    print("yo error:- \(error)")
+                    let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
+                    APP_DELEGAT.HideHud()
                 })
                 
                 //***
                 try self.session.sendData(colorName.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable)
-            } catch let error1 as NSError {
-                error = error1
-                NSLog("%@", "\(error)")
+            } catch let error as NSError {
+                NSLog("test:-%@", "\(error)")
             }
         }
 
     }
+    
     
 }
 
@@ -137,7 +184,9 @@ extension ColorServiceManager : MCSessionDelegate {
     }
     
     func session(session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, atURL localURL: NSURL, withError error: NSError?) {
-
+        let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
+        APP_DELEGAT.HideHud()
+        
         do{
             let urlOfMusicFile = self.getDocumentDirectoryUrl(resourceName)
             try NSFileManager.defaultManager().copyItemAtURL(localURL, toURL: urlOfMusicFile)
@@ -145,7 +194,7 @@ extension ColorServiceManager : MCSessionDelegate {
             APP_DELEGAT.arrayOfUrls?.addObject(urlOfMusicFile)
             self.delegate?.playMusic()
         }catch{
-            print("error: \(error)")
+            print("error yeah: \(error)")
         }
 
         
@@ -154,6 +203,8 @@ extension ColorServiceManager : MCSessionDelegate {
     }
     
     func session(session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, withProgress progress: NSProgress) {
+        let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
+        APP_DELEGAT.showHud()
         NSLog("%@", "didStartReceivingResourceWithName")
     }
   
@@ -163,7 +214,16 @@ extension ColorServiceManager : MCSessionDelegate {
         let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         let documentDirectory:NSURL = urls.first!
         
-        let finalDatabaseURL = documentDirectory.URLByAppendingPathComponent("\(musicFileName).mp3")
+        let finalDatabaseURL = documentDirectory.URLByAppendingPathComponent("\(musicFileName).m4a")
         return finalDatabaseURL
+    }
+    
+    func getDocumentDirectoryUrlDUMMY(musicFileName: String) -> String{
+        let fileManager = NSFileManager.defaultManager()
+        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        let documentDirectory:NSURL = urls.first!
+        
+        let finalDatabaseURL = documentDirectory.URLByAppendingPathComponent("\(musicFileName).m4a")
+        return finalDatabaseURL.absoluteString
     }
 }

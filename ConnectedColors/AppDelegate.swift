@@ -1,10 +1,6 @@
 //
 //  AppDelegate.swift
 //  ConnectedColors
-//
-//  Created by Ralf Ebert on 28/04/15.
-//  Copyright (c) 2015 Ralf Ebert. All rights reserved.
-//
 
 import UIKit
 
@@ -13,7 +9,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var arrayOfUrls: NSMutableArray? = NSMutableArray()
-
+    var indicator : UIActivityIndicatorView! = nil
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -41,6 +38,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func showHud()
+    {
+        indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        indicator.center = self.window!.center
+        indicator.startAnimating()
+        self.window!.addSubview(indicator)
+    }
+    
+    func HideHud()
+    {
+        indicator.stopAnimating()
+    }
+    
 
 }
 

@@ -29,7 +29,7 @@
 
 /* Begin PBXFileReference section */
 		412658B51D8C99D90056ABC7 /* TheNights.m4r */ = {isa = PBXFileReference; lastKnownFileType = file; path = TheNights.m4r; sourceTree = "<group>"; };
-		BF52C09E1AEFE4700042F9E8 /* ConnectedColors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConnectedColors.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF52C09E1AEFE4700042F9E8 /* PlayMates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayMates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF52C0A21AEFE4700042F9E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF52C0A51AEFE4700042F9E8 /* ColorSwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSwitchViewController.swift; sourceTree = "<group>"; };
@@ -72,7 +72,7 @@
 		BF52C09F1AEFE4700042F9E8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BF52C09E1AEFE4700042F9E8 /* ConnectedColors.app */,
+				BF52C09E1AEFE4700042F9E8 /* PlayMates.app */,
 				BF52C0B31AEFE4700042F9E8 /* ConnectedColorsTests.xctest */,
 			);
 			name = Products;
@@ -135,7 +135,7 @@
 			);
 			name = ConnectedColors;
 			productName = ConnectedColors;
-			productReference = BF52C09E1AEFE4700042F9E8 /* ConnectedColors.app */;
+			productReference = BF52C09E1AEFE4700042F9E8 /* PlayMates.app */;
 			productType = "com.apple.product-type.application";
 		};
 		BF52C0B21AEFE4700042F9E8 /* ConnectedColorsTests */ = {
@@ -355,7 +355,7 @@
 				INFOPLIST_FILE = ConnectedColors/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pccrewexample.ConnectedColors;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PlayMates;
 			};
 			name = Debug;
 		};
@@ -367,7 +367,7 @@
 				INFOPLIST_FILE = ConnectedColors/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pccrewexample.ConnectedColors;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PlayMates;
 			};
 			name = Release;
 		};
