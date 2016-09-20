@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ycg-LQ-0SA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ycg-LQ-0SA">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YJk-2a-R1e">
-                                <rect key="frame" x="16" y="125" width="48" height="38"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YJk-2a-R1e">
+                                <rect key="frame" x="16" y="125" width="47" height="38"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                 <state key="normal" title="Red">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -28,8 +28,8 @@
                                     <action selector="redTapped:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="Jde-mU-2h7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhX-fe-hZU">
-                                <rect key="frame" x="72" y="125" width="64" height="38"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhX-fe-hZU">
+                                <rect key="frame" x="71" y="125" width="64" height="38"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                 <state key="normal" title="Yellow">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -52,9 +52,9 @@
                                     <outlet property="delegate" destination="ax0-WZ-lTZ" id="RsY-zV-3Fh"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RTX-TY-hrR">
-                                <rect key="frame" x="238" y="129" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RTX-TY-hrR">
+                                <rect key="frame" x="157" y="129" width="148" height="30"/>
+                                <state key="normal" title="Select music to share"/>
                                 <connections>
                                     <action selector="btnMediaPickerAction:" destination="ax0-WZ-lTZ" eventType="touchUpInside" id="sbt-m7-n84"/>
                                 </connections>
@@ -62,11 +62,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="RTX-TY-hrR" firstAttribute="top" secondItem="7jZ-Oe-uuY" secondAttribute="bottom" constant="24" id="07H-s7-duh"/>
                             <constraint firstItem="YJk-2a-R1e" firstAttribute="top" secondItem="7jZ-Oe-uuY" secondAttribute="bottom" constant="20" id="Fk7-rB-1Fe"/>
                             <constraint firstItem="nhX-fe-hZU" firstAttribute="leading" secondItem="YJk-2a-R1e" secondAttribute="trailing" constant="8" id="OB3-Q2-pPI"/>
                             <constraint firstItem="7jZ-Oe-uuY" firstAttribute="top" secondItem="QIl-vK-9Or" secondAttribute="bottom" constant="20" id="Pd8-mG-7XI"/>
                             <constraint firstAttribute="trailing" secondItem="fuU-wC-mmG" secondAttribute="trailing" id="Xom-KY-0cz"/>
                             <constraint firstItem="fuU-wC-mmG" firstAttribute="leading" secondItem="8I6-do-OJY" secondAttribute="leading" id="YJW-5A-DWt"/>
+                            <constraint firstAttribute="trailing" secondItem="RTX-TY-hrR" secondAttribute="trailing" constant="15" id="Ycu-CC-I84"/>
+                            <constraint firstItem="fuU-wC-mmG" firstAttribute="top" secondItem="RTX-TY-hrR" secondAttribute="bottom" constant="21" id="enc-vI-0FL"/>
                             <constraint firstItem="fuU-wC-mmG" firstAttribute="top" secondItem="nhX-fe-hZU" secondAttribute="bottom" constant="17" id="gYX-jB-2Mx"/>
                             <constraint firstItem="7jZ-Oe-uuY" firstAttribute="trailing" secondItem="8I6-do-OJY" secondAttribute="trailingMargin" id="knQ-IQ-OS1"/>
                             <constraint firstItem="85Y-Vt-2l0" firstAttribute="top" secondItem="fuU-wC-mmG" secondAttribute="bottom" id="rwq-RX-Nfi"/>

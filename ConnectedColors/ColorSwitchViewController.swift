@@ -38,7 +38,7 @@ class ColorSwitchViewController: UIViewController,MPMediaPickerControllerDelegat
     
     //MARK: Action
     
-    @IBAction func btnMediaPickerAction(sender: UIButton) {
+    @IBAction func btnMediaPickerAction(sender: UIButton) {        
         let mediaPicker: MPMediaPickerController = MPMediaPickerController.self(mediaTypes:MPMediaType.Music)
         mediaPicker.allowsPickingMultipleItems = false
         mediaPicker.delegate = self
@@ -52,10 +52,9 @@ class ColorSwitchViewController: UIViewController,MPMediaPickerControllerDelegat
     
     func mediaPicker(mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
         self.dismissViewControllerAnimated(true, completion: nil)
-        print("you picked: \(mediaItemCollection)")
+//        print("you picked: \(mediaItemCollection)")
         let mediaItem :MPMediaItem = mediaItemCollection.items.first!
         colorService.sendMp3(mediaItem)
-        
     }
     
 }
@@ -91,16 +90,16 @@ extension ColorSwitchViewController : ColorServiceManagerDelegate {
             })
         }
         
-        let urlOfMusic : NSURL = (APP_DELEGAT.arrayOfUrls?.firstObject)! as! NSURL
-        
-        do{
-            audioPlayer = try AVAudioPlayer(contentsOfURL: urlOfMusic)
-            audioPlayer.prepareToPlay()
-            audioPlayer.volume = 1.0
-            audioPlayer.play()
-        }catch{
-            print("error: \(error)")
-        }
+//        let urlOfMusic : NSURL = (APP_DELEGAT.arrayOfUrls?.firstObject)! as! NSURL
+//        
+//        do{
+//            audioPlayer = try AVAudioPlayer(contentsOfURL: urlOfMusic)
+//            audioPlayer.prepareToPlay()
+//            audioPlayer.volume = 1.0
+//            audioPlayer.play()
+//        }catch{
+//            print("error: \(error)")
+//        }
     }
     
     //MARK: table view
@@ -118,14 +117,20 @@ extension ColorSwitchViewController : ColorServiceManagerDelegate {
         }
         
         let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
-        let urlOfSong:NSURL = (APP_DELEGAT.arrayOfUrls?.objectAtIndex(indexPath.row))! as! NSURL
-        preferenceCell?.textLabel!.text = urlOfSong.absoluteString
+        let dic = (APP_DELEGAT.arrayOfUrls?.objectAtIndex(indexPath.row))! as! NSDictionary
+        let urlOfSong :String = dic.allKeys.first as! String
+//        let urlOfSong:NSURL = (APP_DELEGAT.arrayOfUrls?.objectAtIndex(indexPath.row))! as! NSURL
+        preferenceCell?.textLabel!.text = urlOfSong
         return preferenceCell!
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
-        let urlOfMusic : NSURL = (APP_DELEGAT.arrayOfUrls?.objectAtIndex(indexPath.row))! as! NSURL
+        
+        let dic = (APP_DELEGAT.arrayOfUrls?.objectAtIndex(indexPath.row))! as! NSDictionary
+        let urlOfMusic : NSURL = dic.allValues.first as! NSURL
+        
+//        let urlOfMusic : NSURL = (APP_DELEGAT.arrayOfUrls?.objectAtIndex(indexPath.row))! as! NSURL
         
         do{
             audioPlayer = try AVAudioPlayer(contentsOfURL: urlOfMusic)

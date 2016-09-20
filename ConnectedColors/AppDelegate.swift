@@ -49,8 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func HideHud()
     {
         indicator.stopAnimating()
+        indicator.removeFromSuperview()
     }
-    
-
 }
 

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		412658B61D8C99D90056ABC7 /* TheNights.m4r in Resources */ = {isa = PBXBuildFile; fileRef = 412658B51D8C99D90056ABC7 /* TheNights.m4r */; };
+		41280DDD1D916238008ACDDB /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41280DDB1D916238008ACDDB /* Utility.swift */; };
 		BF52C0A41AEFE4700042F9E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */; };
 		BF52C0A61AEFE4700042F9E8 /* ColorSwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52C0A51AEFE4700042F9E8 /* ColorSwitchViewController.swift */; };
 		BF52C0A91AEFE4700042F9E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF52C0A71AEFE4700042F9E8 /* Main.storyboard */; };
@@ -28,7 +28,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		412658B51D8C99D90056ABC7 /* TheNights.m4r */ = {isa = PBXFileReference; lastKnownFileType = file; path = TheNights.m4r; sourceTree = "<group>"; };
+		41280DDB1D916238008ACDDB /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		41280DDE1D916622008ACDDB /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
+		41280DE01D916650008ACDDB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		41280DE21D916690008ACDDB /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BF52C09E1AEFE4700042F9E8 /* PlayMates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayMates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF52C0A21AEFE4700042F9E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,9 +63,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		41280DD91D916238008ACDDB /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				41280DDB1D916238008ACDDB /* Utility.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		BF52C0951AEFE4700042F9E8 = {
 			isa = PBXGroup;
 			children = (
+				41280DE21D916690008ACDDB /* MediaPlayer.framework */,
+				41280DE01D916650008ACDDB /* AVFoundation.framework */,
+				41280DDE1D916622008ACDDB /* MultipeerConnectivity.framework */,
 				BF52C0A01AEFE4700042F9E8 /* ConnectedColors */,
 				BF52C0B61AEFE4700042F9E8 /* ConnectedColorsTests */,
 				BF52C09F1AEFE4700042F9E8 /* Products */,
@@ -81,7 +95,7 @@
 		BF52C0A01AEFE4700042F9E8 /* ConnectedColors */ = {
 			isa = PBXGroup;
 			children = (
-				412658B51D8C99D90056ABC7 /* TheNights.m4r */,
+				41280DD91D916238008ACDDB /* Utilities */,
 				BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */,
 				BF52C0C51AEFEAEA0042F9E8 /* ColorServiceManager.swift */,
 				BF52C0A51AEFE4700042F9E8 /* ColorSwitchViewController.swift */,
@@ -201,7 +215,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				412658B61D8C99D90056ABC7 /* TheNights.m4r in Resources */,
 				BF52C0A91AEFE4700042F9E8 /* Main.storyboard in Resources */,
 				BF52C0AE1AEFE4700042F9E8 /* LaunchScreen.xib in Resources */,
 				BF52C0AB1AEFE4700042F9E8 /* Images.xcassets in Resources */,
@@ -222,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41280DDD1D916238008ACDDB /* Utility.swift in Sources */,
 				BF52C0A61AEFE4700042F9E8 /* ColorSwitchViewController.swift in Sources */,
 				BF52C0A41AEFE4700042F9E8 /* AppDelegate.swift in Sources */,
 				BF52C0C61AEFEAEA0042F9E8 /* ColorServiceManager.swift in Sources */,
@@ -283,7 +297,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Pardeep Kumar Chaudhary (6R94A6AQFR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pardeep Kumar Chaudhary (6R94A6AQFR)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -305,6 +320,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "ee93d35b-c040-42c5-91e7-a9a7d95ae2d1";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -327,7 +343,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Pardeep Kumar Chaudhary (6R94A6AQFR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pardeep Kumar Chaudhary (6R94A6AQFR)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -342,6 +359,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "ee93d35b-c040-42c5-91e7-a9a7d95ae2d1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -351,11 +369,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Pardeep Kumar Chaudhary (6R94A6AQFR)";
 				INFOPLIST_FILE = ConnectedColors/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pccrewexample.ConnectedColors;
+				PRODUCT_BUNDLE_IDENTIFIER = com.programmingcrew.ConnectedColor;
 				PRODUCT_NAME = PlayMates;
+				PROVISIONING_PROFILE = "ee93d35b-c040-42c5-91e7-a9a7d95ae2d1";
 			};
 			name = Debug;
 		};
@@ -363,11 +383,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Pardeep Kumar Chaudhary (6R94A6AQFR)";
 				INFOPLIST_FILE = ConnectedColors/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pccrewexample.ConnectedColors;
+				PRODUCT_BUNDLE_IDENTIFIER = com.programmingcrew.ConnectedColor;
 				PRODUCT_NAME = PlayMates;
+				PROVISIONING_PROFILE = "ee93d35b-c040-42c5-91e7-a9a7d95ae2d1";
 			};
 			name = Release;
 		};
@@ -375,6 +397,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Pardeep Kumar Chaudhary (6R94A6AQFR)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -386,6 +409,7 @@
 				INFOPLIST_FILE = ConnectedColorsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ee93d35b-c040-42c5-91e7-a9a7d95ae2d1";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ConnectedColors.app/ConnectedColors";
 			};
 			name = Debug;
@@ -394,6 +418,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Pardeep Kumar Chaudhary (6R94A6AQFR)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -401,6 +426,7 @@
 				INFOPLIST_FILE = ConnectedColorsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ee93d35b-c040-42c5-91e7-a9a7d95ae2d1";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ConnectedColors.app/ConnectedColors";
 			};
 			name = Release;
