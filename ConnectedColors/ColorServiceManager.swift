@@ -10,17 +10,17 @@ import MediaPlayer
 
 protocol ColorServiceManagerDelegate {
     
-    func connectedDevicesChanged(manager : ColorServiceManager, connectedDevices: [String])
-    func colorChanged(manager : ColorServiceManager, colorString: String)
+    func connectedDevicesChanged(_ manager : ColorServiceManager, connectedDevices: [String])
+    func colorChanged(_ manager : ColorServiceManager, colorString: String)
     func playMusic()
 }
 
 class ColorServiceManager : NSObject {
     
-    private let ColorServiceType = "example-color"
-    private let myPeerId = MCPeerID(displayName: UIDevice.currentDevice().name)
-    private let serviceAdvertiser : MCNearbyServiceAdvertiser
-    private let serviceBrowser : MCNearbyServiceBrowser
+    fileprivate let ColorServiceType = "example-color"
+    fileprivate let myPeerId = MCPeerID(displayName: UIDevice.current.name)
+    fileprivate let serviceAdvertiser : MCNearbyServiceAdvertiser
+    fileprivate let serviceBrowser : MCNearbyServiceBrowser
     var delegate : ColorServiceManagerDelegate?
     
     override init() {
@@ -43,19 +43,19 @@ class ColorServiceManager : NSObject {
     }
     
     lazy var session: MCSession = {
-        let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.Required)
+        let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.required)
         session.delegate = self
         return session
     }()
 
     func myDocumentsDirectory() -> NSString{
-        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+        return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
     }
 
-    func myDeleteFile (path : String){
-        if NSFileManager.defaultManager().fileExistsAtPath(path) {
+    func myDeleteFile (_ path : String){
+        if FileManager.default.fileExists(atPath: path) {
             do{
-                try NSFileManager.defaultManager().removeItemAtPath(path)
+                try FileManager.default.removeItem(atPath: path)
             }catch{
                 print("Error while deleting file \(error)")
             }
@@ -63,33 +63,33 @@ class ColorServiceManager : NSObject {
         }
     }
 
-    func sendMp3(mediaItem : MPMediaItem)  {
+    func sendMp3(_ mediaItem : MPMediaItem)  {
         if session.connectedPeers.count > 0 {
-            let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
+            let APP_DELEGAT = UIApplication.shared.delegate as! AppDelegate
             APP_DELEGAT.showHud()
             do {
                 //export the native song with proper url
-                let assetURL = mediaItem.valueForProperty(MPMediaItemPropertyAssetURL) as! NSURL
-                let songAsset : AVURLAsset = AVURLAsset(URL: assetURL, options: nil)
+                let assetURL = mediaItem.value(forProperty: MPMediaItemPropertyAssetURL) as! URL
+                let songAsset : AVURLAsset = AVURLAsset(url: assetURL, options: nil)
                 let exporter : AVAssetExportSession = AVAssetExportSession(asset: songAsset, presetName: AVAssetExportPresetAppleM4A)!
                 exporter.outputFileType = "com.apple.m4a-audio";
                 let ss = myDocumentsDirectory()
-                let dd = NSURL(fileURLWithPath: ss as String)
-                let exportFileUrl = dd.URLByAppendingPathComponent("\(mediaItem.title).m4a")
+                let dd = URL(fileURLWithPath: ss as String)
+                let exportFileUrl = dd.appendingPathComponent("\(mediaItem.title).m4a")
                 print("exporting")
 
                 exporter.outputURL = exportFileUrl;
                 myDeleteFile(exportFileUrl.absoluteString);
 
-                exporter.exportAsynchronouslyWithCompletionHandler({ 
+                exporter.exportAsynchronously(completionHandler: { 
                     let exportStatus = exporter.status
                     switch(exportStatus){
-                    case .Completed:
+                    case .completed:
                         print("exporting complete")
                         let audioUrl = exportFileUrl;
                         print("sending resource named:-\(mediaItem.title)")
                         
-                        self.session.sendResourceAtURL(audioUrl, withName: mediaItem.title!, toPeer: self.session.connectedPeers.first!, withCompletionHandler: { (error) in
+                        self.session.sendResource(at: audioUrl, withName: mediaItem.title!, toPeer: self.session.connectedPeers.first!, withCompletionHandler: { (error) in
                                 print("error at sending: \(error)")
                             })
                         break
@@ -104,21 +104,21 @@ class ColorServiceManager : NSObject {
         
     }
     
-    func sendColor(colorName : String) {//pkc1
+    func sendColor(_ colorName : String) {//pkc1
         NSLog("%@", "sendColor: \(colorName)")
         
         if session.connectedPeers.count > 0 {
             do {
                 //**Z
-                let fileURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("TheNights", ofType: "m4r")!)
-                self.session.sendResourceAtURL(fileURL, withName: "TheNights", toPeer: session.connectedPeers.first!, withCompletionHandler: { (error) in
+                let fileURL = URL(fileURLWithPath: Bundle.main.path(forResource: "TheNights", ofType: "m4r")!)
+                self.session.sendResource(at: fileURL, withName: "TheNights", toPeer: session.connectedPeers.first!, withCompletionHandler: { (error) in
                     print("yo error:- \(error)")
-                    let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
+                    let APP_DELEGAT = UIApplication.shared.delegate as! AppDelegate
                     APP_DELEGAT.HideHud()
                 })
                 
                 //***
-                try self.session.sendData(colorName.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, toPeers: session.connectedPeers, withMode: MCSessionSendDataMode.Reliable)
+                try self.session.send(colorName.data(using: String.Encoding.utf8, allowLossyConversion: false)!, toPeers: session.connectedPeers, with: MCSessionSendDataMode.reliable)
             } catch let error as NSError {
                 NSLog("test:-%@", "\(error)")
             }
@@ -130,32 +130,41 @@ class ColorServiceManager : NSObject {
 }
 
 extension ColorServiceManager : MCNearbyServiceAdvertiserDelegate {
+    @available(iOS 7.0, *)
+    public func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
+        //pkc swift3
+        NSLog("%@", "didReceiveInvitationFromPeer \(peerID)")
+        invitationHandler(true, self.session)
+    }
+
     
-    func advertiser(advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: NSError) {
+    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
         NSLog("%@", "didNotStartAdvertisingPeer: \(error)")
     }
     
-    func advertiser(advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: NSData?, invitationHandler: ((Bool, MCSession) -> Void)) {
+    /*
+    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: (@escaping (Bool, MCSession) -> Void)) {
         
         NSLog("%@", "didReceiveInvitationFromPeer \(peerID)")
         invitationHandler(true, self.session)
     }
+    */
 
 }
 
 extension ColorServiceManager : MCNearbyServiceBrowserDelegate {
     
-    func browser(browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: NSError) {
+    func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {
         NSLog("%@", "didNotStartBrowsingForPeers: \(error)")
     }
     
-    func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
+    func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         NSLog("%@", "foundPeer: \(peerID)")
         NSLog("%@", "invitePeer: \(peerID)")
-        browser.invitePeer(peerID, toSession: self.session, withContext: nil, timeout: 10)
+        browser.invitePeer(peerID, to: self.session, withContext: nil, timeout: 10)
     }
     
-    func browser(browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
+    func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         NSLog("%@", "lostPeer: \(peerID)")
     }
     
@@ -165,9 +174,9 @@ extension MCSessionState {
     
     func stringValue() -> String {
         switch(self) {
-        case .NotConnected: return "NotConnected"
-        case .Connecting: return "Connecting"
-        case .Connected: return "Connected"
+        case .notConnected: return "NotConnected"
+        case .connecting: return "Connecting"
+        case .connected: return "Connected"
         default: return "Unknown"
         }
     }
@@ -176,35 +185,35 @@ extension MCSessionState {
 
 extension ColorServiceManager : MCSessionDelegate {
     
-    func session(session: MCSession, peer peerID: MCPeerID, didChangeState state: MCSessionState) {
+    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         NSLog("%@", "peer \(peerID) didChangeState: \(state.stringValue())")
         self.delegate?.connectedDevicesChanged(self, connectedDevices: session.connectedPeers.map({$0.displayName}))
     }
     
-    func session(session: MCSession, didReceiveData data: NSData, fromPeer peerID: MCPeerID) {
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         //pkc2
-        NSLog("%@", "didReceiveData: \(data.length) bytes")
-        let str = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
+        NSLog("%@", "didReceiveData: \(data.count) bytes")
+        let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as! String
         self.delegate?.colorChanged(self, colorString: str)
     }
     
-    func session(session: MCSession, didReceiveStream stream: NSInputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
         NSLog("%@", "didReceiveStream")
     }
     
-    func session(session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, atURL localURL: NSURL, withError error: NSError?) {
-        let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL, withError error: Error?) {
+        let APP_DELEGAT = UIApplication.shared.delegate as! AppDelegate
         APP_DELEGAT.HideHud()
         
         do{
             
             let urlOfMusicFile = self.getDocumentDirectoryUrl(resourceName)
-            try NSFileManager.defaultManager().copyItemAtURL(localURL, toURL: urlOfMusicFile)
-            let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
+            try FileManager.default.copyItem(at: localURL, to: urlOfMusicFile)
+            let APP_DELEGAT = UIApplication.shared.delegate as! AppDelegate
 //            APP_DELEGAT.arrayOfUrls?.addObject(urlOfMusicFile)
             //key = name of song
             //value = url of song
-            APP_DELEGAT.arrayOfUrls?.addObject([resourceName:urlOfMusicFile])
+            APP_DELEGAT.arrayOfUrls?.add([resourceName:urlOfMusicFile])
             
             self.delegate?.playMusic()
         }catch{
@@ -216,28 +225,28 @@ extension ColorServiceManager : MCSessionDelegate {
         print("localURL:- \(localURL)")
     }
     
-    func session(session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, withProgress progress: NSProgress) {
-        let APP_DELEGAT = UIApplication.sharedApplication().delegate as! AppDelegate
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
+        let APP_DELEGAT = UIApplication.shared.delegate as! AppDelegate
         APP_DELEGAT.showHud()
         NSLog("%@", "didStartReceivingResourceWithName")
     }
   
     //MARK:-
-    func getDocumentDirectoryUrl(musicFileName: String) -> NSURL{
-        let fileManager = NSFileManager.defaultManager()
-        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        let documentDirectory:NSURL = urls.first!
+    func getDocumentDirectoryUrl(_ musicFileName: String) -> URL{
+        let fileManager = FileManager.default
+        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory:URL = urls.first!
         
-        let finalDatabaseURL = documentDirectory.URLByAppendingPathComponent("\(musicFileName).m4a")
+        let finalDatabaseURL = documentDirectory.appendingPathComponent("\(musicFileName).m4a")
         return finalDatabaseURL
     }
     
-    func getDocumentDirectoryUrlDUMMY(musicFileName: String) -> String{
-        let fileManager = NSFileManager.defaultManager()
-        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        let documentDirectory:NSURL = urls.first!
+    func getDocumentDirectoryUrlDUMMY(_ musicFileName: String) -> String{
+        let fileManager = FileManager.default
+        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory:URL = urls.first!
         
-        let finalDatabaseURL = documentDirectory.URLByAppendingPathComponent("\(musicFileName).m4a")
+        let finalDatabaseURL = documentDirectory.appendingPathComponent("\(musicFileName).m4a")
         return finalDatabaseURL.absoluteString
     }
 }

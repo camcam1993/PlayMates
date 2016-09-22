@@ -11,23 +11,23 @@ class Utility: NSObject {
     
     static var activityBaseView:UIView=UIView()
     
-    static func showLoader(text : String) {
+    static func showLoader(_ text : String) {
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         activityBaseView.frame=(appDelegate.window?.frame)!
-        activityBaseView.backgroundColor=UIColor.whiteColor()
+        activityBaseView.backgroundColor=UIColor.white
         activityBaseView.alpha=0.6;        
         
         let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
         activityIndicator.center = activityBaseView.center
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         activityBaseView.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         
         let rect = CGRect(x: 0, y: activityIndicator.frame.origin.y+25, width: (appDelegate.window?.frame.size.width)!, height: 21)
         let labelLoading = UILabel(frame: rect)
-        labelLoading.textAlignment = .Center
+        labelLoading.textAlignment = .center
         labelLoading.text = text
         activityBaseView.addSubview(labelLoading)
 
@@ -51,15 +51,15 @@ class Utility: NSObject {
 //    }
     
     //MARK: - NSUserdefault utility
-    static func saveValueInUserDefault(value : AnyObject?,forkey:String!)
+    static func saveValueInUserDefault(_ value : AnyObject?,forkey:String!)
     {
-        NSUserDefaults.standardUserDefaults().setObject(value, forKey: forkey)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.set(value, forKey: forkey)
+        UserDefaults.standard.synchronize()
     }
     
-    static func getValueFromUserDefaultForKey(key:String!) -> AnyObject?
+    static func getValueFromUserDefaultForKey(_ key:String!) -> AnyObject?
     {
-        let value : AnyObject? =  NSUserDefaults.standardUserDefaults().objectForKey(key)
+        let value : AnyObject? =  UserDefaults.standard.object(forKey: key) as AnyObject?
         return value
     }
     
