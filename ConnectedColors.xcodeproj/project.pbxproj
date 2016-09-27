@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		41280DDD1D916238008ACDDB /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41280DDB1D916238008ACDDB /* Utility.swift */; };
+		73D467D31D9A876A00F6E83B /* NearByOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D467D11D9A876A00F6E83B /* NearByOffer.swift */; };
+		73D467D41D9A876A00F6E83B /* NearByOffer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73D467D21D9A876A00F6E83B /* NearByOffer.xib */; };
+		73D467D71D9A877D00F6E83B /* NearByOfferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D467D51D9A877D00F6E83B /* NearByOfferTableViewCell.swift */; };
+		73D467D81D9A877D00F6E83B /* NearByOfferTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73D467D61D9A877D00F6E83B /* NearByOfferTableViewCell.xib */; };
 		BF52C0A41AEFE4700042F9E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */; };
 		BF52C0A61AEFE4700042F9E8 /* ColorSwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52C0A51AEFE4700042F9E8 /* ColorSwitchViewController.swift */; };
 		BF52C0A91AEFE4700042F9E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF52C0A71AEFE4700042F9E8 /* Main.storyboard */; };
@@ -32,6 +36,10 @@
 		41280DDE1D916622008ACDDB /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
 		41280DE01D916650008ACDDB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		41280DE21D916690008ACDDB /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		73D467D11D9A876A00F6E83B /* NearByOffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearByOffer.swift; sourceTree = "<group>"; };
+		73D467D21D9A876A00F6E83B /* NearByOffer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NearByOffer.xib; sourceTree = "<group>"; };
+		73D467D51D9A877D00F6E83B /* NearByOfferTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearByOfferTableViewCell.swift; sourceTree = "<group>"; };
+		73D467D61D9A877D00F6E83B /* NearByOfferTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NearByOfferTableViewCell.xib; sourceTree = "<group>"; };
 		BF52C09E1AEFE4700042F9E8 /* PlayMates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayMates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF52C0A21AEFE4700042F9E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +103,10 @@
 		BF52C0A01AEFE4700042F9E8 /* ConnectedColors */ = {
 			isa = PBXGroup;
 			children = (
+				73D467D51D9A877D00F6E83B /* NearByOfferTableViewCell.swift */,
+				73D467D61D9A877D00F6E83B /* NearByOfferTableViewCell.xib */,
+				73D467D11D9A876A00F6E83B /* NearByOffer.swift */,
+				73D467D21D9A876A00F6E83B /* NearByOffer.xib */,
 				41280DD91D916238008ACDDB /* Utilities */,
 				BF52C0A31AEFE4700042F9E8 /* AppDelegate.swift */,
 				BF52C0C51AEFEAEA0042F9E8 /* ColorServiceManager.swift */,
@@ -218,8 +230,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF52C0A91AEFE4700042F9E8 /* Main.storyboard in Resources */,
+				73D467D81D9A877D00F6E83B /* NearByOfferTableViewCell.xib in Resources */,
 				BF52C0AE1AEFE4700042F9E8 /* LaunchScreen.xib in Resources */,
 				BF52C0AB1AEFE4700042F9E8 /* Images.xcassets in Resources */,
+				73D467D41D9A876A00F6E83B /* NearByOffer.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +251,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73D467D31D9A876A00F6E83B /* NearByOffer.swift in Sources */,
+				73D467D71D9A877D00F6E83B /* NearByOfferTableViewCell.swift in Sources */,
 				41280DDD1D916238008ACDDB /* Utility.swift in Sources */,
 				BF52C0A61AEFE4700042F9E8 /* ColorSwitchViewController.swift in Sources */,
 				BF52C0A41AEFE4700042F9E8 /* AppDelegate.swift in Sources */,
@@ -381,7 +397,7 @@
 				INFOPLIST_FILE = ConnectedColors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.programmingcrew.ConnectedColors;
+				PRODUCT_BUNDLE_IDENTIFIER = com.programmingcrew.ConnectedColors12;
 				PRODUCT_NAME = PlayMates;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
@@ -396,7 +412,7 @@
 				INFOPLIST_FILE = ConnectedColors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.programmingcrew.ConnectedColors;
+				PRODUCT_BUNDLE_IDENTIFIER = com.programmingcrew.ConnectedColors12;
 				PRODUCT_NAME = PlayMates;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;

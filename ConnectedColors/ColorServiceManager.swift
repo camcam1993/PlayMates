@@ -86,12 +86,18 @@ class ColorServiceManager : NSObject {
                     switch(exportStatus){
                     case .completed:
                         print("exporting complete")
-                        let audioUrl = exportFileUrl;
+                        let audioUrl : URL = exportFileUrl as URL
                         print("sending resource named:-\(mediaItem.title)")
                         
-                        self.session.sendResource(at: audioUrl, withName: mediaItem.title!, toPeer: self.session.connectedPeers.first!, withCompletionHandler: { (error) in
-                                print("error at sending: \(error)")
-                            })
+                        DispatchQueue.main.async {
+                            if(self.session.connectedPeers.count > 0){
+                                self.showNearByOfferPopup(arrayOfConnectedDevice: self.session.connectedPeers, urlOfAudio: audioUrl, nameOfSong: mediaItem.title!)
+                            }else{
+                                APP_DELEGAT.HideHud()
+                            }
+                        }
+                                                
+                        //pkc
                         break
                     default:
                         print("exporting failed")
@@ -101,7 +107,26 @@ class ColorServiceManager : NSObject {
                 })
             }
         }
+    }
+    
+    func showNearByOfferPopup(arrayOfConnectedDevice : [MCPeerID], urlOfAudio : URL, nameOfSong : String)
+    {
+        let APP_DELEGAT = UIApplication.shared.delegate as! AppDelegate
+        let window = APP_DELEGAT.window
+        let nearByOfferViewObject = NearByOffer(frame: (window!.frame))
+        nearByOfferViewObject.arrayOffers = arrayOfConnectedDevice
         
+        nearByOfferViewObject.handler_OfferActionFromView = { (selectedOffer: MCPeerID) -> Void in
+            self.sendResource(urlOfAudio: urlOfAudio, nameOfSong: nameOfSong, peerID: selectedOffer)
+        }
+        window!.addSubview(nearByOfferViewObject)
+    }
+    
+    
+    func sendResource(urlOfAudio : URL, nameOfSong : String, peerID : MCPeerID){
+        self.session.sendResource(at: urlOfAudio, withName: nameOfSong, toPeer: peerID, withCompletionHandler: { (error) in
+            print("error at sending: \(error)")
+        })
     }
     
     func sendColor(_ colorName : String) {//pkc1
@@ -125,7 +150,6 @@ class ColorServiceManager : NSObject {
         }
 
     }
-    
     
 }
 
@@ -206,11 +230,9 @@ extension ColorServiceManager : MCSessionDelegate {
         APP_DELEGAT.HideHud()
         
         do{
-            
             let urlOfMusicFile = self.getDocumentDirectoryUrl(resourceName)
             try FileManager.default.copyItem(at: localURL, to: urlOfMusicFile)
             let APP_DELEGAT = UIApplication.shared.delegate as! AppDelegate
-//            APP_DELEGAT.arrayOfUrls?.addObject(urlOfMusicFile)
             //key = name of song
             //value = url of song
             APP_DELEGAT.arrayOfUrls?.add([resourceName:urlOfMusicFile])
@@ -249,4 +271,5 @@ extension ColorServiceManager : MCSessionDelegate {
         let finalDatabaseURL = documentDirectory.appendingPathComponent("\(musicFileName).m4a")
         return finalDatabaseURL.absoluteString
     }
+    
 }

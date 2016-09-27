@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Muli-SemiBold.ttf">
+            <string>Muli-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NearByOfferTableViewCell" id="4zL-fG-wVH" customClass="NearByOfferTableViewCell" customModule="PlayMates" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4zL-fG-wVH" id="pun-E9-ehw">
+                <frame key="frameInset" width="320" height="63"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="offerDet" translatesAutoresizingMaskIntoConstraints="NO" id="4Jt-Br-hU4">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="13" id="6vf-UI-dda"/>
+                            <constraint firstAttribute="height" constant="26" id="X3T-Gd-zPD"/>
+                            <constraint firstAttribute="width" constant="26" id="ddO-KW-x9d"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="X3T-Gd-zPD"/>
+                                <exclude reference="ddO-KW-x9d"/>
+                            </mask>
+                        </variation>
+                    </imageView>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eLb-gb-u8q">
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                        <color key="textColor" red="0.43411044970000001" green="0.43411044970000001" blue="0.43411044970000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHd-NM-NSl">
+                        <color key="backgroundColor" red="0.84313725490196079" green="0.47843137254901963" blue="0.090196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="74" id="4zh-d5-xUk"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Muli-SemiBold" family="Muli" pointSize="13"/>
+                        <state key="normal" title="Get Code">
+                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="14"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="btnBuyNearByOfferActionWithSender:" destination="4zL-fG-wVH" eventType="touchUpInside" id="n3C-eQ-p8b"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="eLb-gb-u8q" firstAttribute="leading" secondItem="4Jt-Br-hU4" secondAttribute="trailing" constant="5" id="2XA-s0-ipM"/>
+                    <constraint firstItem="eLb-gb-u8q" firstAttribute="top" secondItem="pun-E9-ehw" secondAttribute="top" constant="5" id="Iez-Yc-KsY"/>
+                    <constraint firstAttribute="trailing" secondItem="bHd-NM-NSl" secondAttribute="trailing" constant="10" id="K54-dz-Q7q"/>
+                    <constraint firstItem="4Jt-Br-hU4" firstAttribute="top" secondItem="pun-E9-ehw" secondAttribute="top" constant="13" id="LYl-Lo-rzv"/>
+                    <constraint firstItem="4Jt-Br-hU4" firstAttribute="leading" secondItem="pun-E9-ehw" secondAttribute="leading" constant="8" id="Ryf-yu-fns"/>
+                    <constraint firstAttribute="bottom" secondItem="eLb-gb-u8q" secondAttribute="bottom" constant="13" id="h1Q-Oc-Fj1"/>
+                    <constraint firstItem="bHd-NM-NSl" firstAttribute="top" secondItem="eLb-gb-u8q" secondAttribute="top" id="mbz-RX-czV"/>
+                    <constraint firstItem="bHd-NM-NSl" firstAttribute="leading" secondItem="eLb-gb-u8q" secondAttribute="trailing" constant="9" id="u9y-0l-HXL"/>
+                    <constraint firstItem="bHd-NM-NSl" firstAttribute="centerY" secondItem="pun-E9-ehw" secondAttribute="centerY" id="za9-Ly-cg3"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="za9-Ly-cg3"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="textViewNearByOffer" destination="eLb-gb-u8q" id="rO7-HK-8AM"/>
+            </connections>
+            <point key="canvasLocation" x="232" y="318"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="offerDet" width="13" height="13"/>
+    </resources>
+</document>
