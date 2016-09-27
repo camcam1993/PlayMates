@@ -397,7 +397,7 @@
 				INFOPLIST_FILE = ConnectedColors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.programmingcrew.ConnectedColors12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.programmingcrew.ConnectedColors123;
 				PRODUCT_NAME = PlayMates;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
@@ -412,7 +412,7 @@
 				INFOPLIST_FILE = ConnectedColors/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.programmingcrew.ConnectedColors12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.programmingcrew.ConnectedColors123;
 				PRODUCT_NAME = PlayMates;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;

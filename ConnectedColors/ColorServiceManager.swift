@@ -89,18 +89,19 @@ class ColorServiceManager : NSObject {
                         let audioUrl : URL = exportFileUrl as URL
                         print("sending resource named:-\(mediaItem.title)")
                         
-                        DispatchQueue.main.async {
+//                        DispatchQueue.main.async {
                             if(self.session.connectedPeers.count > 0){
                                 self.showNearByOfferPopup(arrayOfConnectedDevice: self.session.connectedPeers, urlOfAudio: audioUrl, nameOfSong: mediaItem.title!)
                             }else{
                                 APP_DELEGAT.HideHud()
                             }
-                        }
+//                        }
                                                 
                         //pkc
                         break
                     default:
-                        print("exporting failed")
+                        //pkc, add toast
+                        print("exporting failed because \(exporter.error?.localizedDescription)")
                         APP_DELEGAT.HideHud()
                         break
                     }
@@ -211,6 +212,7 @@ extension ColorServiceManager : MCSessionDelegate {
     
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         NSLog("%@", "peer \(peerID) didChangeState: \(state.stringValue())")
+        //pkc add toast
         self.delegate?.connectedDevicesChanged(self, connectedDevices: session.connectedPeers.map({$0.displayName}))
     }
     
@@ -225,7 +227,8 @@ extension ColorServiceManager : MCSessionDelegate {
         NSLog("%@", "didReceiveStream")
     }
     
-    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL, withError error: Error?) {
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL, withError error: Error?)
+    {
         let APP_DELEGAT = UIApplication.shared.delegate as! AppDelegate
         APP_DELEGAT.HideHud()
         
@@ -252,6 +255,7 @@ extension ColorServiceManager : MCSessionDelegate {
         APP_DELEGAT.showHud()
         NSLog("%@", "didStartReceivingResourceWithName")
     }
+    
   
     //MARK:-
     func getDocumentDirectoryUrl(_ musicFileName: String) -> URL{
